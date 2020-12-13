@@ -36,5 +36,5 @@ Run with kvmtool
 
 The multi-platform ARMv8 target can be used with QEMU:
 
-	qemu-system-aarch64 -machine virt -cpu cortex-a57 -nographic \
+	qemu-system-aarch64 -machine virt -cpu cortex-a53 -nographic \
 		-kernel openwrt-armvirt-64-Image-initramfs \
