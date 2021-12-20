@@ -19,6 +19,7 @@ define Device/cznic_turris1x
   DEVICE_MODEL := Turris 1.x
   DEVICE_PACKAGES :=  \
     kmod-hwmon-core kmod-hwmon-lm90 kmod-usb3 kmod-rtc-ds1307
+  KERNELNAME := uImage
   KERNEL := kernel-bin
   IMAGES := sysupgrade.bin
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | append-metadata  
