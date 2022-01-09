@@ -1,3 +1,19 @@
+define Device/cznic_turris-mox
+  $(call Device/Default-arm64)
+  DEVICE_VENDOR := CZ.NIC
+  DEVICE_MODEL := Turris MOX
+  DEVICE_DTS := armada-3720-turris-mox
+  KERNEL_INITRAMFS := kernel-bin | gzip | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb
+  DEVICE_PACKAGES := kmod-usb2 kmod-gpio-button-hotplug kmod-rtc-ds1307 kmod-i2c-pxa
+  IMAGES := $$(DEVICE_IMG_PREFIX)-sysupgrade.img.gz mox-medkit-$$(DEVICE_IMG_PREFIX)-initramfs.tar.gz
+  IMAGE/$$(DEVICE_IMG_PREFIX)-sysupgrade.img.gz := boot-scr | boot-img-ext4 | sdcard-img-ext4 | gzip | append-metadata
+  IMAGE/mox-medkit-$$(DEVICE_IMG_PREFIX)-initramfs.tar.gz := mox-medkit-initramfs | gzip
+  DEVICE_IMG_NAME = $$(2)
+  SOC := armada-3720
+  BOOT_SCRIPT := turris-mox
+endef
+TARGET_DEVICES += cznic_turris-mox
+
 define Device/glinet_gl-mv1000
   $(call Device/Default-arm64)
   DEVICE_VENDOR := GL.iNet

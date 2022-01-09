@@ -10,6 +10,9 @@ board_config_update
 board=$(board_name)
 
 case "$board" in
+cznic,turris-mox)
+	ucidef_set_interface_lan_wan "$(cd /sys/class/net/; echo lan*)" "eth0"
+	;;
 glinet,gl-mv1000|\
 globalscale,espressobin|\
 globalscale,espressobin-emmc|\

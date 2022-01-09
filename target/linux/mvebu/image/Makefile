@@ -135,6 +135,17 @@ define Build/omnia-medkit-initramfs
 		--file=$@ -C $(dir $(IMAGE_KERNEL))boot/ .
 endef
 
+define Build/mox-medkit-initramfs
+        $(TAR) -c -T /dev/null -f $@
+        #rm -rf $(dir $(IMAGE_KERNEL))boot
+        mkdir -p $(dir $(IMAGE_KERNEL))boot/boot/
+	cp $(KDIR)/image-$(DEVICE_DTS).dtb $(dir $(IMAGE_KERNEL))boot/boot/armada-3720-turris-mox.dtb
+        cp $(KDIR)/Image-initramfs $(dir $(IMAGE_KERNEL))boot/boot/Image
+        $(TAR) -rp --numeric-owner --owner=0 --group=0 --sort=name \
+                $(if $(SOURCE_DATE_EPOCH),--mtime="@$(SOURCE_DATE_EPOCH)") \
+                --file=$@ -C $(dir $(IMAGE_KERNEL))boot/ .
+endef
+
 define Build/uDPU-firmware
 	(rm -fR $@-fw; mkdir -p $@-fw)
 	$(CP) $(BIN_DIR)/$(DEVICE_IMG_PREFIX)-initramfs.itb $@-fw/recovery.itb

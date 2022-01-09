@@ -26,6 +26,9 @@ cznic,turris-omnia)
 		ubootenv_add_uci_config "/dev/mtd0" "0xf0000" "0x10000" "0x10000"
 	fi
 	;;
+cznic,turris-mox)
+	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x00010000"
+	;;
 glinet,gl-mv1000)
 	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x8000" "0x8000" "1"
 	;;
