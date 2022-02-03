@@ -13,3 +13,12 @@ define Device/freescale_p2020rdb
 	pad-rootfs $$(BLOCKSIZE) | append-metadata
 endef
 TARGET_DEVICES += freescale_p2020rdb
+
+define Device/cznic_turris1x
+  DEVICE_VENDOR := CZ.NIC
+  DEVICE_MODEL := Turris 1.x
+  DEVICE_PACKAGES :=  \
+    kmod-hwmon-core kmod-hwmon-lm90 kmod-usb3 kmod-rtc-ds1307
+  KERNEL = kernel-bin
+endef
+TARGET_DEVICES += cznic_turris1x
