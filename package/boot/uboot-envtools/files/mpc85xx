@@ -8,6 +8,9 @@ touch /etc/config/ubootenv
 board=$(board_name)
 
 case "$board" in
+fsl,P2020RDB)
+	ubootenv_add_uci_config "/dev/mtd5" "0x20000" "0x2000" "0x20000"
+	;;
 ocedo,panda)
 	ubootenv_add_uci_config "/dev/mtd1" "0x0" "0x20000" "0x20000"
 	ubootenv_add_uci_config "/dev/mtd2" "0x0" "0x20000" "0x20000"
