@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=mt76
-PKG_RELEASE=4
+PKG_RELEASE=5
 
 PKG_LICENSE:=GPLv2
 PKG_LICENSE_FILES:=
@@ -177,7 +177,7 @@ endef
 define KernelPackage/mt7615e
   $(KernelPackage/mt76-default)
   TITLE:=MediaTek MT7615e wireless driver
-  DEPENDS+=@PCI_SUPPORT +kmod-mt7615-common
+  DEPENDS+=@PCI_SUPPORT +kmod-mt7615-common +kmod-mt7615-firmware
   FILES:= $(PKG_BUILD_DIR)/mt7615/mt7615e.ko
   AUTOLOAD:=$(call AutoProbe,mt7615e)
 endef
