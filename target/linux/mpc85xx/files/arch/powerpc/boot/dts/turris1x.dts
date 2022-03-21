@@ -88,7 +88,8 @@
 					/* 512KB for u-boot Bootloader Image */
 					/* 512KB for u-boot Environment Variables */
 					reg = <0x00f00000 0x00100000>;
-					label = "NOR (RO) U-Boot Image";
+					label = "u-boot";
+					read-only;
 				};
 			};
 		};
@@ -122,7 +123,7 @@
 				partition@700000 {
 					/* 249MB for JFFS2 based Root file System */
 					reg = <0x00700000 0xF900000>;
-					label = "NAND (RW) JFFS2 Root File System";
+					label = "firmware";
 				};
 
 				partition@00 {
