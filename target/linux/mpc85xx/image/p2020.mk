@@ -17,11 +17,14 @@ TARGET_DEVICES += freescale_p2020rdb
 define Device/cznic_turris1x
   DEVICE_VENDOR := CZ.NIC
   DEVICE_MODEL := Turris 1.x
+  FILESYSTEMS := ubifs
+  KERNEL_IN_UBI := 1
   DEVICE_PACKAGES :=  \
     kmod-hwmon-core kmod-hwmon-lm90 kmod-usb3 kmod-rtc-ds1307
   KERNELNAME := uImage
   KERNEL := kernel-bin
-  IMAGES := sysupgrade.bin
-  IMAGE/sysupgrade.bin := append-kernel | append-rootfs | append-metadata  
+  IMAGES := sysupgrade.bin nand-sysupgrade.bin
+  IMAGE/sysupgrade.bin := append-kernel | append-rootfs | append-metadata
+  IMAGE/nand-sysupgrade.bin := append-ubi
 endef
 TARGET_DEVICES += cznic_turris1x

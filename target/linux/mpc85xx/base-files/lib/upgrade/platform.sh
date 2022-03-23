@@ -13,6 +13,8 @@ platform_do_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
+	cznic_turris1x|\
+	cznic,turris1x|\
 	ocedo,panda|\
 	sophos,red-15w-rev1)
 		nand_do_upgrade "$1"
