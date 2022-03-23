@@ -14,7 +14,7 @@
 
 / {
 	model = "Turris";
-	compatible = "fsl,P2020RDB";
+	compatible = "cznic,turris1x", "fsl,P2020RDB";
 
 	aliases {
 		ethernet0 = &enet0;
@@ -123,7 +123,7 @@
 				partition@700000 {
 					/* 249MB for JFFS2 based Root file System */
 					reg = <0x00700000 0xF900000>;
-					label = "firmware";
+					label = "NAND (RW) JFFS2 Root File System";
 				};
 
 				partition@00 {
