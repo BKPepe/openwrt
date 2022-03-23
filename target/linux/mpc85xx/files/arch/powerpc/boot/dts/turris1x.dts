@@ -81,15 +81,20 @@
 				partition@E40000 {
 					/* 128KB for Certificates backup */
 					reg = <0xE40000 0x000C0000>;
-					label = "rescue-certificates";
+					label = "certificates";
 				};
 
 				partition@f00000 {
-					/* This location must not be altered  */
 					/* 512KB for u-boot Bootloader Image */
-					/* 512KB for u-boot Environment Variables */
-					reg = <0x00f00000 0x00100000>;
+					reg = <0x00f00000 0x00080000>;
 					label = "u-boot";
+					read-only;
+				};
+
+				partition@f80000 {
+					/* 512KB for u-boot Environment Variables */
+					reg = <0x00f80000 0x00080000>;
+					label = "u-boot-env";
 					read-only;
 				};
 			};
@@ -109,29 +114,9 @@
 				#address-cells = <1>;
 				#size-cells = <1>;
 
-				/* WTF IS THIS  * /
-
-				partition@0 {
-					/* 2MB for DTB Image */
-					reg = <0x00000000 0x00200000>;
-					label = "NAND (RW) DTB Image";
-				};
-
-				partition@200000 {
-					/* 5MB for Linux Kernel Image */
-					reg = <0x00200000 0x00500000>;
-					label = "NAND (RW) Linux Kernel Image";
-				};
-
-				partition@700000 {
-					/* 249MB for JFFS2 based Root file System */
-					reg = <0x00700000 0xF900000>;
-					label = "NAND (RW) JFFS2 Root File System";
-				};
-
 				partition@00 {
 					reg = <0x00000000 0x10000000>;
-					label = "rootfs-ubifs";
+					label = "rootfs";
 				};
 			};
 		};

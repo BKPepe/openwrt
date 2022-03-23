@@ -1,0 +1,68 @@
+if part uuid ${devtype} ${devnum}:${distro_bootpart} partuuid; then
+	if test "${bootfstype}" = "btrfs"; then
+		rootflags="commit=5,subvol=@"
+		subvol="/@"
+	else
+		rootflags="commit=5"
+		subvol=""
+	fi
+
+	# btrfs load cmd in stock u-boot is broken:
+	# - if error occurs when reading the file (even when the file does not
+	#   exist), load cmd succeeds
+	# - we therefore cannot use it in a condition block directly
+	# - but when error occurs, the filesize variable is set to 0, and we can
+	#   test for this is a condition
+	# - also btrfs driver fails to read sparse files, so we use a workaroud:
+	#   if Image fails to load, we try to load Image.lzma and uncompress it
+	#   (lzma compressed file will surely not contain sparse blocks)
+
+	load ${devtype} ${devnum}:${distro_bootpart} ${fdt_addr_r} ${subvol}/boot/armada-3720-turris-mox.dtb
+	if test "$filesize" != "0"; then
+		has_dtb=1
+	else
+		setenv has_dtb 0
+		echo "Cannot find device tree binary!"
+	fi
+
+	if test $has_dtb -eq 1; then
+
+		# check whether running with stock U-Boot, and if yes, remove
+		# phy properties from USB3 node (old ATF has a bug in USB3 PHY
+		# initialization)
+		crc32 04100000 d0630 04effff8
+		mw 04effffc ff325d6a
+		if cmp.l 04effff8 04effffc 1; then
+			fdt addr ${fdt_addr_r}
+			fdt rm /soc/internal-regs@d0000000/usb@58000 phys
+			fdt rm /soc/internal-regs@d0000000/usb@58000 phy-names
+		fi
+
+		load ${devtype} ${devnum}:${distro_bootpart} ${kernel_addr_r} ${subvol}/boot/Image
+		if test "$filesize" = "0"; then
+			echo "Failed to load ${subvol}/boot/Image"
+			echo "Now trying ${subvol}/boot/Image.lzma"
+			tmp_addr_r=0x10000000
+			load ${devtype} ${devnum}:${distro_bootpart} ${tmp_addr_r} ${subvol}/boot/Image.lzma
+			if test "$filesize" != "0"; then
+				if lzmadec ${tmp_addr_r} ${kernel_addr_r}; then
+					echo "Successfully decompressed Image.lzma"
+				else
+					echo "Failed decompressing Image.lzma"
+					filesize=0
+				fi
+			else
+				echo "Failed to load ${subvol}/boot/Image.lzma"
+			fi
+		fi
+		if test "$filesize" != "0"; then
+			setenv bootargs "earlyprintk console=ttyMV0,115200 earlycon=ar3700_uart,0xd0012000 rootfstype=${bootfstype} root=PARTUUID=${partuuid} rootflags=${rootflags} rootwait ${contract} rw cfg80211.freg=${regdomain} ${quirks}"
+			booti ${kernel_addr_r} - ${fdt_addr_r}
+			echo "Booting Image failed"
+		else
+			echo "Cannot load kernel binary"
+		fi
+	fi
+
+	env delete partuuid
+fi
