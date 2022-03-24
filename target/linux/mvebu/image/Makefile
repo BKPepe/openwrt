@@ -137,8 +137,9 @@ endef
 
 define Build/mox-medkit-initramfs
         $(TAR) -c -T /dev/null -f $@
-        #rm -rf $(dir $(IMAGE_KERNEL))boot
+        rm -rf $(dir $(IMAGE_KERNEL))boot
         mkdir -p $(dir $(IMAGE_KERNEL))boot/boot/
+	$(CP) $(KDIR_TMP)/$(IMG_PREFIX)-cznic_turris-mox-sysupgrade.img.gz-boot.scr $(dir $(IMAGE_KERNEL))boot/boot/boot.scr
 	cp $(KDIR)/image-$(DEVICE_DTS).dtb $(dir $(IMAGE_KERNEL))boot/boot/armada-3720-turris-mox.dtb
         cp $(KDIR)/Image-initramfs $(dir $(IMAGE_KERNEL))boot/boot/Image
         $(TAR) -rp --numeric-owner --owner=0 --group=0 --sort=name \

@@ -6,7 +6,7 @@ define Device/cznic_turris-mox
   KERNEL_INITRAMFS := kernel-bin | gzip | fit gzip $$(KDIR)/image-$$(DEVICE_DTS).dtb
   DEVICE_PACKAGES := kmod-usb2 kmod-gpio-button-hotplug kmod-rtc-ds1307 kmod-i2c-pxa
   IMAGES := $$(DEVICE_IMG_PREFIX)-sysupgrade.img.gz mox-medkit-$$(DEVICE_IMG_PREFIX)-initramfs.tar.gz
-  IMAGE/$$(DEVICE_IMG_PREFIX)-sysupgrade.img.gz := boot-scr | boot-img-ext4 | sdcard-img-ext4 | gzip | append-metadata
+  IMAGE/$$(DEVICE_IMG_PREFIX)-sysupgrade.img.gz := boot-img | sdcard-img | boot-scr | gzip | append-metadata
   IMAGE/mox-medkit-$$(DEVICE_IMG_PREFIX)-initramfs.tar.gz := mox-medkit-initramfs | gzip
   DEVICE_IMG_NAME = $$(2)
   SOC := armada-3720
