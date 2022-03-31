@@ -14,6 +14,14 @@ define Device/freescale_p2020rdb
 endef
 TARGET_DEVICES += freescale_p2020rdb
 
+# m and e are values from mtdinfo
+# c value needs to be verified as it is somehow different than what we can see
+# from Turris OS 3.x
+UBIFS_OPTS:= -m 2048 -e 126KiB -c 2048
+
+# This is alright taken from mtdinfo as well
+UBI_OPTS:= -m 2048 -p 128KiB -s 512
+
 define Device/cznic_turris1x
   DEVICE_VENDOR := CZ.NIC
   DEVICE_MODEL := Turris 1.x
@@ -23,8 +31,7 @@ define Device/cznic_turris1x
     kmod-hwmon-core kmod-hwmon-lm90 kmod-usb3 kmod-rtc-ds1307
   KERNELNAME := uImage
   KERNEL := kernel-bin
-  IMAGES := sysupgrade.bin nand-sysupgrade.bin
+  IMAGES := sysupgrade.bin
   IMAGE/sysupgrade.bin := append-kernel | append-rootfs | append-metadata
-  IMAGE/nand-sysupgrade.bin := append-ubi
 endef
 TARGET_DEVICES += cznic_turris1x
