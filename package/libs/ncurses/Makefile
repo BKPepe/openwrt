@@ -186,8 +186,8 @@ define Build/InstallDev
 endef
 
 define Host/Compile
-	$(MAKE) -C $(HOST_BUILD_DIR) libs
-	$(MAKE) -C $(HOST_BUILD_DIR)/progs tic
+	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR) libs
+	$(MAKE) $(HOST_JOBS) -C $(HOST_BUILD_DIR)/progs tic
 endef
 
 $(eval $(call HostBuild))
