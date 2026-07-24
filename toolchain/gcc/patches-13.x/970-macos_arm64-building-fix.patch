@@ -1,20 +1,15 @@
-commit 9c6e71079b46ad5433165feaa2001450f2017b56
-Author: Przemysław Buczkowski <prem@prem.moe>
-Date:   Mon Aug 16 13:16:21 2021 +0100
+From: Przemysław Buczkowski <prem@prem.moe>
+Date: Mon, 16 Aug 2021 13:16:21 +0100
+Subject: [PATCH] GCC: Patch for Apple Silicon compatibility
 
-    GCC: Patch for Apple Silicon compatibility
-    
-    This patch fixes a linker error occuring when compiling
-    the cross-compiler on macOS and ARM64 architecture.
-    
-    Adapted from:
-    https://github.com/richfelker/musl-cross-make/issues/116#issuecomment-823612404
-    
-    Change-Id: Ia3ee98a163bbb62689f42e2da83a5ef36beb0913
-    Reviewed-on: https://review.haiku-os.org/c/buildtools/+/4329
-    Reviewed-by: John Scipione <jscipione@gmail.com>
-    Reviewed-by: Adrien Destugues <pulkomandy@gmail.com>
+This patch fixes a linker error occuring when compiling
+the cross-compiler on macOS and ARM64 architecture.
 
+Adapted from:
+https://github.com/richfelker/musl-cross-make/issues/116#issuecomment-823612404
+
+Signed-off-by: Przemysław Buczkowski <prem@prem.moe>
+---
 --- a/gcc/config/aarch64/aarch64.h
 +++ b/gcc/config/aarch64/aarch64.h
 @@ -1195,7 +1195,7 @@ extern enum aarch64_code_model aarch64_c

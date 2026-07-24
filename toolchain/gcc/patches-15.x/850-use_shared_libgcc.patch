@@ -1,10 +1,11 @@
-commit dcfc40358b5a3cae7320c17f8d1cebd5ad5540cd
-Author: Felix Fietkau <nbd@openwrt.org>
-Date:   Sun Feb 12 20:25:47 2012 +0000
+From: Felix Fietkau <nbd@openwrt.org>
+Date: Sun, 12 Feb 2012 20:25:47 +0000
+Subject: [PATCH] gcc: use shared libgcc by default
 
-    gcc 4.6: port over the missing patch 850-use_shared_libgcc.patch to prevent libgcc crap from leaking into every single binary
-    
-    SVN-Revision: 30486
+Prevent libgcc symbols from leaking into every single binary.
+
+Signed-off-by: Felix Fietkau <nbd@openwrt.org>
+---
 --- a/gcc/config/arm/linux-eabi.h
 +++ b/gcc/config/arm/linux-eabi.h
 @@ -132,10 +132,6 @@

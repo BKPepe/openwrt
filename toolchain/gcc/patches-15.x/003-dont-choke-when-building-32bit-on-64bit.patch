@@ -1,3 +1,11 @@
+From: Felix Fietkau <nbd@openwrt.org>
+Date: Sun, 19 Oct 2014 21:45:51 +0000
+Subject: [PATCH] gcc: don't choke when building 32bit on 64bit
+
+Prevent test_real_width check failure when building 32-bit GCC on 64-bit host.
+
+Signed-off-by: Felix Fietkau <nbd@openwrt.org>
+---
 --- a/gcc/real.h
 +++ b/gcc/real.h
 @@ -77,8 +77,10 @@ struct GTY(()) real_value {

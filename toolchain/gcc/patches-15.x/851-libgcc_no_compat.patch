@@ -1,13 +1,11 @@
-commit 64661de100da1ec1061ef3e5e400285dce115e6b
-Author: Felix Fietkau <nbd@openwrt.org>
-Date:   Sun May 10 13:16:35 2015 +0000
+From: Felix Fietkau <nbd@openwrt.org>
+Date: Sun, 10 May 2015 13:16:35 +0000
+Subject: [PATCH] gcc: add some size optimization patches
 
-    gcc: add some size optimization patches
-    
-    Signed-off-by: Felix Fietkau <nbd@openwrt.org>
-    
-    SVN-Revision: 45664
+Disable unwind compatibility routines in libgcc to save space.
 
+Signed-off-by: Felix Fietkau <nbd@openwrt.org>
+---
 --- a/libgcc/config/t-libunwind
 +++ b/libgcc/config/t-libunwind
 @@ -2,8 +2,7 @@

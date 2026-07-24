@@ -1,20 +1,18 @@
-commit 99368862e44740ff4fd33760893f04e14f9dbdf1
-Author: Felix Fietkau <nbd@openwrt.org>
-Date:   Tue Jul 31 00:52:27 2007 +0000
+From: Thorsten Glaser <tg@mirbsd.de>
+Date: Tue, 31 Jul 2007 00:52:27 +0000
+Subject: [PATCH] gcc: add -fhonour-copts
 
-    Port the mbsd_multi patch from freewrt, which adds -fhonour-copts. This will emit warnings in packages that don't use our target cflags properly
-    
-    SVN-Revision: 8256
+This patch brings over a feature from MirBSD:
+* -fhonour-copts
+  If this option is not given, it's warned (depending
+  on environment variables). This is to catch errors
+  of misbuilt packages which override CFLAGS themselves.
 
-	This patch brings over a feature from MirBSD:
-	* -fhonour-copts
-	  If this option is not given, it's warned (depending
-	  on environment variables). This is to catch errors
-	  of misbuilt packages which override CFLAGS themselves.
+This patch was authored by Thorsten Glaser <tg@mirbsd.de>
+with copyright assignment to the FSF in effect.
 
-	This patch was authored by Thorsten Glaser <tg at mirbsd.de>
-	with copyright assignment to the FSF in effect.
-
+Signed-off-by: Felix Fietkau <nbd@openwrt.org>
+---
 --- a/gcc/c-family/c-opts.cc
 +++ b/gcc/c-family/c-opts.cc
 @@ -108,6 +108,9 @@ static size_t include_cursor;

@@ -1,3 +1,11 @@
+From: Felix Fietkau <nbd@openwrt.org>
+Date: Mon, 19 Oct 2009 23:26:09 +0000
+Subject: [PATCH] mips: disable mips16 for crtstuff
+
+Build crtstuff with -mno-mips16 to avoid mips16 issues in C runtime startup.
+
+Signed-off-by: Felix Fietkau <nbd@openwrt.org>
+---
 --- a/libgcc/config/mips/t-mips16
 +++ b/libgcc/config/mips/t-mips16
 @@ -43,3 +43,6 @@ SYNC_CFLAGS = -mno-mips16

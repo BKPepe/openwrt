@@ -1,15 +1,17 @@
-libatomic: Do not enforce march on aarch64
+From: Khem Raj <raj.khem@gmail.com>
+Date: Wed, 13 May 2020 15:10:38 -0700
+Subject: [PATCH] libatomic: Do not enforce march on aarch64
 
-Inspired by The Yocto Project [1].
+OE passes the right options via gcc compiler cmdline via TUNE_CCARGS
+this can conflict between -mcpu settings and -march setting here, since
+-mcpu will translate into an appropriate -march, lets depend on that
+instead of setting it explicitly
 
-[1] https://github.com/yoctoproject/poky/blob/51192a79f1717786dda42776f916c3d97ada7971/meta/recipes-devtools/gcc/gcc/0022-libatomic-Do-not-enforce-march-on-aarch64.patch
+Upstream-Status: Inappropriate [OE-Specific]
 
+Signed-off-by: Khem Raj <raj.khem@gmail.com>
 Signed-off-by: Konstantin Demin <rockdrilla@gmail.com>
-
- libatomic/Makefile.am | 1 -
- libatomic/Makefile.in | 1 -
- 2 files changed, 2 deletions(-)
-
+---
 --- a/libatomic/Makefile.am
 +++ b/libatomic/Makefile.am
 @@ -128,7 +128,6 @@ libatomic_la_LIBADD = $(foreach s,$(SIZE

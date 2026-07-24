@@ -1,10 +1,11 @@
-Author: Jo-Philipp Wich <jow@openwrt.org>
-Date:   Sat Apr 21 03:02:39 2012 +0000
+From: Jo-Philipp Wich <jow@openwrt.org>
+Date: Sat, 21 Apr 2012 03:02:39 +0000
+Subject: [PATCH] gcc: make getenv() spec function nonfatal
 
-    gcc: add patch to make the getenv() spec function nonfatal if requested environment variable is unset
-    
-    SVN-Revision: 31390
+Make the getenv() spec function nonfatal if requested environment variable is unset.
 
+Signed-off-by: Jo-Philipp Wich <jow@openwrt.org>
+---
 --- a/gcc/gcc.cc
 +++ b/gcc/gcc.cc
 @@ -10357,8 +10357,10 @@ getenv_spec_function (int argc, const ch

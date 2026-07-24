@@ -1,4 +1,3 @@
-From dda6b050cd74a352670787a294596a9c56c21327 Mon Sep 17 00:00:00 2001
 From: Yousong Zhou <yszhou4tech@gmail.com>
 Date: Fri, 4 May 2018 18:20:53 +0800
 Subject: [PATCH] gotools: fix compilation when making cross compiler
@@ -18,13 +17,9 @@ for linking with libgo.so
 - Cross-building instructions, http://www.eglibc.org/archives/patches/msg00078.html
 
 When 3-pass GCC compilation is used, shared libgcc runtime libraries will be
-available after gcc pass2 completed and will meet the gotools link requirement
-at gcc pass3
----
- gotools/Makefile.am | 4 +++-
- gotools/Makefile.in | 4 +++-
- 2 files changed, 6 insertions(+), 2 deletions(-)
 
+Signed-off-by: Yousong Zhou <yszhou4tech@gmail.com>
+---
 --- a/gotools/Makefile.am
 +++ b/gotools/Makefile.am
 @@ -26,6 +26,7 @@ PWD_COMMAND = $${PWDCMD-pwd}

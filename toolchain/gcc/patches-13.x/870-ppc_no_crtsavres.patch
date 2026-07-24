@@ -1,3 +1,12 @@
+From: Felix Fietkau <nbd@openwrt.org>
+Date: Mon, 19 Oct 2009 23:26:09 +0000
+Subject: [PATCH] powerpc: disable out-of-line gpr/fpr save/restore
+
+Inline register saving/restoring routines on PowerPC for code size and
+compatibility.
+
+Signed-off-by: Felix Fietkau <nbd@openwrt.org>
+---
 --- a/gcc/config/rs6000/rs6000-logue.cc
 +++ b/gcc/config/rs6000/rs6000-logue.cc
 @@ -344,7 +344,7 @@ rs6000_savres_strategy (rs6000_stack_t *
