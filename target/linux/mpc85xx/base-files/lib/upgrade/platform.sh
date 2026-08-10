@@ -6,6 +6,14 @@ PART_NAME=firmware
 REQUIRE_IMAGE_METADATA=1
 
 platform_check_image() {
+	local board=$(board_name)
+
+	case "$board" in
+	cznic,turris1x)
+		legacy_sdcard_check_image "$1"
+		;;
+	esac
+
 	return 0
 }
 
@@ -13,6 +21,9 @@ platform_do_upgrade() {
 	local board=$(board_name)
 
 	case "$board" in
+	cznic,turris1x)
+		legacy_sdcard_do_upgrade "$1"
+		;;
 	hpe,msm460|\
 	ocedo,panda|\
 	sophos,red-15w-rev1|\

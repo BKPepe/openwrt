@@ -1,0 +1,19 @@
+# This script is only read by distroboot, i.e. by a current mainline U-Boot.
+# The 2015 U-Boot the routers ship with has no distroboot; its built-in
+# bootcmd loads the same zImage and fdt files from this partition directly
+# and takes the boot arguments from its bootargsmmc variable instead.
+
+# Determine the root device: the rootfs is the partition right after the
+# one this script was loaded from.
+setexpr rootpart ${distro_bootpart} + 1
+if test ${devtype} = mmc -a ${devnum} = 0; then
+	setenv rootdev /dev/mmcblk0p${rootpart}
+else
+	part uuid ${devtype} ${devnum}:${rootpart} uuid
+	setenv rootdev PARTUUID=${uuid}
+fi
+setenv bootargs console=ttyS0,115200 root=${rootdev} rootfstype=squashfs rootwait
+
+load ${devtype} ${devnum}:${distro_bootpart} ${kernel_addr_r} zImage
+load ${devtype} ${devnum}:${distro_bootpart} ${fdt_addr_r} fdt
+bootm ${kernel_addr_r} - ${fdt_addr_r}
